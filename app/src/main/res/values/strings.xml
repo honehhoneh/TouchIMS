@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Touch IMS</string>
+
+    <string name="prompt_id">ID Number</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_login">Log in</string>
+    <string name="action_send">Send Request</string>
+    <string name="error_invalid_id">This ID Number is invalid</string>
+    <string name="error_invalid_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_password">This password is too short</string>
+    <string name="error_inco_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_main">Touch IMS</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="change_request_notif">This is to inform the IMS of the following activity/ies of my class to be conducted as specified: </string>
+
+
+    <string-array name="departments">
+        <item>College of Arts &amp; Sciences</item>
+        <item>College of Commerce</item>
+        <item>College of Education</item>
+        <item>College of Engineering</item>
+        <item>College of ICCT</item>
+        <item>College of Nursing</item>
+    </string-array>
+
+    <string-array name="classi">
+        <item>Admin</item>
+        <item>Dean</item>
+        <item>Chairperson</item>
+        <item>Faculty</item>
+        <item>Student</item>
+    </string-array>
+
+    <string-array name="sch_days">
+        <item>MW</item>
+        <item>MWF</item>
+        <item>MTWThF</item>
+        <item>TTh</item>
+        <item>TThS</item>
+        <item>F</item>
+        <item>Sa</item>
+        <item>other</item>
+
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
