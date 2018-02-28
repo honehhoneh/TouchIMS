@@ -21,7 +21,7 @@ import com.mendoza.touchims.R;
 import com.mendoza.touchims.SharedPrefManager;
 import com.mendoza.touchims.models.User;
 
-public class ProfileActivity extends AppCompatActivity
+public class FacultyProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     TextView tv;
@@ -29,7 +29,7 @@ public class ProfileActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_faculty_profile);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
