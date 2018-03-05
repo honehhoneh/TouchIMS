@@ -13,6 +13,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.mendoza.touchims.R;
+import com.mendoza.touchims.SharedPrefManager;
+import com.mendoza.touchims.models.User;
 
 public class ChangeRoomRequestFragment extends Fragment {
 
@@ -67,8 +69,8 @@ public class ChangeRoomRequestFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (validateForm()) {
+                    User user = SharedPrefManager.getInstance(getActivity()).getUser();
                     Toast.makeText(getContext(), "SEEEEEEEND", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
@@ -159,6 +161,10 @@ public class ChangeRoomRequestFragment extends Fragment {
             valid = false;
         } else {
             mActEnd.setError(null);
+        }
+        if(mDept.getSelectedItem().toString().equals("Select department...") || mDays.getSelectedItem().toString().equals("Select schedule of class days...")){
+            Toast.makeText(getContext(), "Invalid Department/Schedule", Toast.LENGTH_SHORT).show();
+            valid = false;
         }
 
         return valid;

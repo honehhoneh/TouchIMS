@@ -10,7 +10,6 @@ import com.mendoza.touchims.R;
 
 public class ReportsFragment extends Fragment {
 
-
     public ReportsFragment() {
     }
 

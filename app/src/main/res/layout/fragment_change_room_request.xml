@@ -178,18 +178,18 @@
         <TextView
             android:id="@+id/textNotif"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="63dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
-            android:textAlignment="center"
             android:text="@string/change_request_notif"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinnerDays"
-            android:textStyle="bold"
-            android:textSize="18dp"/>
+            app:layout_constraintTop_toBottomOf="@id/spinnerDays" />
 
         <TextView
             android:id="@+id/textView6"

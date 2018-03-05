@@ -25,7 +25,8 @@ import com.mendoza.touchims.models.User;
 public class FacultyProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TouchIMSInterface {
 
-    TextView tv, navFullName;
+    TextView navFullName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +34,6 @@ public class FacultyProfileActivity extends AppCompatActivity
         setContentView(R.layout.activity_faculty_profile);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -103,14 +95,17 @@ public class FacultyProfileActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_change_room) {
+            getSupportActionBar().setTitle("Touch IMS");
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frame_container, new ChangeRoomRequestFragment())
                     .commit();
 
 
         } else if (id == R.id.nav_notif) {
+            getSupportActionBar().setTitle("Notifications");
 
         } else if (id == R.id.nav_reports) {
+            getSupportActionBar().setTitle("Reports");
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frame_container, new ReportsFragment())
                     .commit();

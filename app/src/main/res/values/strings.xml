@@ -22,6 +22,7 @@
 
 
     <string-array name="departments">
+        <item>Select department...</item>
         <item>College of Arts &amp; Sciences</item>
         <item>College of Commerce</item>
         <item>College of Education</item>
@@ -39,6 +40,7 @@
     </string-array>
 
     <string-array name="sch_days">
+        <item>Select schedule of class days...</item>
         <item>MW</item>
         <item>MWF</item>
         <item>MTWThF</item>
@@ -46,10 +48,9 @@
         <item>TThS</item>
         <item>F</item>
         <item>Sa</item>
-        <item>other</item>
+        <item>Other</item>
 
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

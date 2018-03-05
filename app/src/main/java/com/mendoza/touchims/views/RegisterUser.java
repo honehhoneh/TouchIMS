@@ -54,36 +54,37 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     private boolean validateForm() {
         boolean valid = true;
 
-        String fname = mFname.getText().toString();
-        if (TextUtils.isEmpty(fname)) {
+        if (TextUtils.isEmpty(mFname.getText().toString())) {
             mFname.setError("Required.");
             valid = false;
         } else {
             mFname.setError(null);
         }
 
-        String lname = mLname.getText().toString();
-        if (TextUtils.isEmpty(lname)) {
+        if (TextUtils.isEmpty(mLname.getText().toString())) {
             mLname.setError("Required.");
             valid = false;
         } else {
             mLname.setError(null);
         }
 
-        String idnum = mIdNum.getText().toString();
-        if (TextUtils.isEmpty(idnum)) {
+        if (TextUtils.isEmpty(mIdNum.getText().toString())) {
             mIdNum.setError("Required.");
             valid = false;
         } else {
             mIdNum.setError(null);
         }
 
-        String pass = mPass.getText().toString();
-        if (TextUtils.isEmpty(pass)) {
+        if (TextUtils.isEmpty(mPass.getText().toString())) {
             mPass.setError("Required.");
             valid = false;
         } else {
             mPass.setError(null);
+        }
+
+        if (mCollege.getSelectedItem().toString().equals("Select department...")) {
+            valid = false;
+            Toast.makeText(this, "Invalid department", Toast.LENGTH_SHORT).show();
         }
 
         return valid;
@@ -140,8 +141,9 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnRegister:
-                if(validateForm()){
-                registerUser();}
+                if (validateForm()) {
+                    registerUser();
+                }
                 break;
         }
 
