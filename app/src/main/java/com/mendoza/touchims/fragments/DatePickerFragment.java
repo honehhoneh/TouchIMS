@@ -1,8 +1,11 @@
 package com.mendoza.touchims.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.icu.util.Calendar;
+
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+@SuppressLint("ValidFragment")
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     EditText mDate;
@@ -31,7 +35,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-        mDate.setText(monthOfYear+1 + "/" + dayOfMonth + "/" + year);
+        mDate.setText(new DecimalFormat("00").format(monthOfYear+1) + "/" + new DecimalFormat("00").format(dayOfMonth) + "/" + year);
 
 
     }

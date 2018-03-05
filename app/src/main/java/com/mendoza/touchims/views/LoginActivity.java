@@ -39,7 +39,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
-            startActivity(new Intent(this, FacultyProfileActivity.class));
+            User user = SharedPrefManager.getInstance(this).getUser();
+            if (user.getClassification().toUpperCase().equals("STUDENT")) {
+                startActivity(new Intent(this, StudentProfileActivity.class));
+            } else {
+                startActivity(new Intent(this, FacultyProfileActivity.class));
+
+            }
             return;
         }
 
@@ -96,9 +102,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 SharedPrefManager.getInstance(getApplicationContext())
                                         .userLogin(user);
 
-                                Intent intent = new Intent(LoginActivity.this, FacultyProfileActivity.class);
-                                startActivity(intent);
-                                finish();
+                                if (user.getClassification().toUpperCase().equals("STUDENT")) {
+                                    Intent intent = new Intent(LoginActivity.this, StudentProfileActivity.class);
+                                    startActivity(intent);
+                                    finish();
+//                                    Toast.makeText(LoginActivity.this, user.getClassification().toUpperCase(), Toast.LENGTH_SHORT).show();
+                                } else if (user.getClassification().toUpperCase().equals("CHAIRPERSON") || user.getClassification().toUpperCase().equals("FACULTY") || user.getClassification().toUpperCase().equals("ADMIN") || user.getClassification().toUpperCase().equals("DEAN")) {
+                                    Intent intent = new Intent(LoginActivity.this, FacultyProfileActivity.class);
+                                    startActivity(intent);
+                                    finish();
+//                                    Toast.makeText(LoginActivity.this, user.getClassification().toUpperCase(), Toast.LENGTH_SHORT).show();
+
+                                }
                             } else {
                                 Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
 
