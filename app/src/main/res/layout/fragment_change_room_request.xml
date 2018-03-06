@@ -106,6 +106,35 @@
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
+            android:id="@+id/textView11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Schedule"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtRoom"
+            app:layout_constraintVertical_weight="1"
+            tools:targetApi="lollipop" />
+
+
+        <Spinner
+            android:id="@+id/spinnerDays"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:entries="@array/sch_days"
+            android:inputType="text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <TextView
             android:id="@+id/textView4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -116,7 +145,7 @@
             android:layout_marginTop="8dp"
             android:text="Time Start"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtRoom"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerDays"
             app:layout_constraintVertical_weight="1"
             tools:targetApi="lollipop" />
 
@@ -128,7 +157,7 @@
             android:layout_marginTop="8dp"
             android:text="Time End"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtRoom"
+            app:layout_constraintTop_toBottomOf="@id/spinnerDays"
             app:layout_constraintVertical_weight="1" />
 
         <EditText
@@ -161,18 +190,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5"
             app:layout_constraintVertical_weight="1" />
 
-        <Spinner
-            android:id="@+id/spinnerDays"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:entries="@array/sch_days"
-            android:inputType="text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtTimeStart" />
+
 
 
         <TextView
@@ -189,7 +207,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinnerDays" />
+            app:layout_constraintTop_toBottomOf="@id/edtTimeStart" />
 
         <TextView
             android:id="@+id/textView6"

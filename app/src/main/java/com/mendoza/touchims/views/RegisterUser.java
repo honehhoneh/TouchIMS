@@ -15,9 +15,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.mendoza.touchims.Constants;
+import com.mendoza.touchims.utilities.Constants;
 import com.mendoza.touchims.R;
-import com.mendoza.touchims.TouchimsSingleton;
+import com.mendoza.touchims.utilities.TouchimsSingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;

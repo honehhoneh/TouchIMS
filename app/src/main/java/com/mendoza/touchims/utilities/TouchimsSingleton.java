@@ -1,4 +1,4 @@
-package com.mendoza.touchims;
+package com.mendoza.touchims.utilities;
 
 
 import android.content.Context;

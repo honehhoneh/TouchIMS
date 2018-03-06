@@ -11,12 +11,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.mendoza.touchims.R;
-import com.mendoza.touchims.SharedPrefManager;
+import com.mendoza.touchims.utilities.SharedPrefManager;
 import com.mendoza.touchims.fragments.ChangeRoomRequestFragment;
 import com.mendoza.touchims.fragments.ReportsFragment;
 import com.mendoza.touchims.interfaces.TouchIMSInterface;
@@ -69,8 +70,9 @@ public class FacultyProfileActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -80,10 +82,9 @@ public class FacultyProfileActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        if (id == R.id.action_notif) {
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -101,15 +102,14 @@ public class FacultyProfileActivity extends AppCompatActivity
                     .commit();
 
 
-        } else if (id == R.id.nav_notif) {
-            getSupportActionBar().setTitle("Notifications");
-
         } else if (id == R.id.nav_reports) {
             getSupportActionBar().setTitle("Reports");
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frame_container, new ReportsFragment())
                     .commit();
 
+        } else if (id == R.id.nav_sent_requests) {
+            getSupportActionBar().setTitle("Sent Requests");
         } else if (id == R.id.nav_logout) {
             logOut();
         }

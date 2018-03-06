@@ -5,17 +5,17 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_reports"
+            android:icon="@drawable/ic_menu_reports"
+            android:title="Attendance Reports" />
+        <item
             android:id="@+id/nav_change_room"
             android:icon="@drawable/ic_menu_shuffle"
             android:title="Change Room Request" />
         <item
-            android:id="@+id/nav_notif"
-            android:icon="@drawable/ic_menu_notifbell"
-            android:title="Notifications" />
-        <item
-            android:id="@+id/nav_reports"
-            android:icon="@drawable/ic_menu_reports"
-            android:title="Reports" />
+            android:id="@+id/nav_sent_requests"
+            android:icon="@drawable/ic_menu_inbox"
+            android:title="Sent Requests" />
 
     </group>
 

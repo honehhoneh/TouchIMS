@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mendoza.touchims.R;
-import com.mendoza.touchims.SharedPrefManager;
+import com.mendoza.touchims.utilities.SharedPrefManager;
 import com.mendoza.touchims.interfaces.TouchIMSInterface;
 import com.mendoza.touchims.models.User;
 
