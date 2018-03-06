@@ -5,29 +5,22 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_check"
+            android:icon="@drawable/ic_menu_attendance"
+            android:title="Attendance Checking" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_remarks"
+            android:icon="@drawable/ic_menu_reports"
+            android:title="Remarks Made" />
+
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Options">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_sub"
+                android:icon="@drawable/ic_menu_sub"
+                android:title="Substitute Request Form" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_menu_logout"
