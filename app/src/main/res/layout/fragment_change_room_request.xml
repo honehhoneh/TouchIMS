@@ -50,6 +50,7 @@
             android:layout_marginTop="8dp"
             android:entries="@array/departments"
             android:inputType="text"
+            android:nextFocusDown="@id/edtSubject"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView1" />
@@ -76,7 +77,10 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
+            android:imeOptions="actionNext"
             android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -101,6 +105,9 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="text"
+            android:maxLines="1"
+            android:nextFocusDown="@id/spinnerDays"
+            android:singleLine="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -130,6 +137,7 @@
             android:layout_marginTop="8dp"
             android:entries="@array/sch_days"
             android:inputType="text"
+            android:nextFocusDown="@id/edtTimeStart"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -169,11 +177,15 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:focusable="false"
+            android:imeOptions="actionNext"
+            android:nextFocusDown="@id/edtTimeEnd"
             android:inputType="time"
+            android:maxLines="1"
+            android:singleLine="true"
             app:layout_constraintEnd_toStartOf="@+id/edtTimeEnd"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:layout_constraintVertical_weight="1"/>
+            app:layout_constraintVertical_weight="1" />
 
         <EditText
             android:id="@+id/edtTimeEnd"
@@ -184,13 +196,15 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:focusable="false"
+            android:imeOptions="actionNext"
             android:inputType="time"
+            android:nextFocusDown="@id/edtActivity"
+            android:maxLines="1"
+            android:singleLine="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/edtTimeStart"
             app:layout_constraintTop_toBottomOf="@+id/textView5"
             app:layout_constraintVertical_weight="1" />
-
-
 
 
         <TextView
@@ -222,8 +236,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textNotif"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/textNotif" />
 
         <EditText
             android:id="@+id/edtActivity"
@@ -232,7 +245,10 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
+            android:imeOptions="actionNext"
             android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -259,8 +275,9 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
-            android:inputType="text"
             android:imeOptions="actionNext"
+            android:inputType="text"
+            android:maxLines="1"
             android:singleLine="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -290,6 +307,8 @@
             android:layout_marginTop="8dp"
             android:focusable="false"
             android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:singleLine="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -328,13 +347,15 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="7dp"
             android:ems="10"
-            android:imeOptions="actionNext"
             android:focusable="false"
+            android:imeOptions="actionNext"
             android:inputType="time"
+            android:maxLines="1"
+            android:singleLine="true"
             app:layout_constraintEnd_toStartOf="@+id/edtActEnd"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9"
-            app:layout_constraintVertical_weight="1"/>
+            app:layout_constraintVertical_weight="1" />
 
         <EditText
             android:id="@+id/edtActEnd"
@@ -345,8 +366,10 @@
             android:layout_marginTop="7dp"
             android:ems="10"
             android:focusable="false"
-            android:inputType="time"
             android:imeOptions="actionNext"
+            android:inputType="time"
+            android:maxLines="1"
+            android:singleLine="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/edtActStart"
             app:layout_constraintTop_toBottomOf="@+id/textView10"
@@ -360,8 +383,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/action_send"
-            app:layout_constraintTop_toBottomOf="@id/edtActStart"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/edtActStart" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -66,7 +66,12 @@ public class ChangeRoomRequestFragment extends Fragment {
     }
 
     private void findViews(View view) {
+        progressDialog = new ProgressDialog(getContext());
+
         mDept = view.findViewById(R.id.spinnerDept);
+        mDept.setFocusable(true);
+        mDept.setFocusableInTouchMode(true);
+        mDept.requestFocus();
         mDays = view.findViewById(R.id.spinnerDays);
 
         mSubject = view.findViewById(R.id.edtSubject);
@@ -207,13 +212,13 @@ public class ChangeRoomRequestFragment extends Fragment {
         actvenue = mActVenue.getText().toString();
 
 
-//        progressDialog.setMessage("Registering user...");
-//        progressDialog.show();
+        progressDialog.setMessage("Registering user...");
+        progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_CHANGE_ROOM_REQUEST,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-//                        progressDialog.dismiss();
+                        progressDialog.dismiss();
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -230,7 +235,7 @@ public class ChangeRoomRequestFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                progressDialog.hide();
+                progressDialog.hide();
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_LONG).show();
             }
         }) {

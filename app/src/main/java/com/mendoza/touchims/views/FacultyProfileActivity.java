@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mendoza.touchims.R;
+import com.mendoza.touchims.fragments.RequestsFragment;
 import com.mendoza.touchims.utilities.SharedPrefManager;
 import com.mendoza.touchims.fragments.ChangeRoomRequestFragment;
 import com.mendoza.touchims.fragments.ReportsFragment;
@@ -51,6 +52,14 @@ public class FacultyProfileActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //default page
+        navigationView.setCheckedItem(R.id.nav_reports);
+        getSupportActionBar().setTitle("Reports");
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_container, new ReportsFragment())
+                .commit();
+
         View headerView = navigationView.getHeaderView(0);
         navFullName = headerView.findViewById(R.id.tvName);
         navFullName.setText(user.getFirstName() + " " + user.getLastName());
@@ -110,6 +119,9 @@ public class FacultyProfileActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_sent_requests) {
             getSupportActionBar().setTitle("Sent Requests");
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frame_container, new RequestsFragment())
+                    .commit();
         } else if (id == R.id.nav_logout) {
             logOut();
         }
