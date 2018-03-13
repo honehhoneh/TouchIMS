@@ -52,5 +52,15 @@
 
     </string-array>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="sort">
+        <item>Oldest to Newest</item>
+        <item>Newest to Oldest</item>
+    </string-array>
+
+    <string-array name="filter">
+        <item>Approved</item>
+        <item>Denied</item>
+        <item>Pending</item>
+        <item>No Filter</item>
+    </string-array>
 </resources>

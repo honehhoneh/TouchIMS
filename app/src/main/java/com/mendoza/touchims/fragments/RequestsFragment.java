@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -37,6 +39,7 @@ public class RequestsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RequestsAdapter adapter;
+    private Spinner spinnerSort, spinnerFilter;
     User user;
 
     private List<RoomRequest> requests;
@@ -58,48 +61,51 @@ public class RequestsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        spinnerSort = rootView.findViewById(R.id.spnSort);
+        spinnerFilter = rootView.findViewById(R.id.spnFilter);
+
         user = SharedPrefManager.getInstance(getActivity()).getUser();
 
+        spinnersOnItemSelected();
+        spinnerFilter.setSelection(3);
+
         requests = new ArrayList<>();
-
-        getRequestsFromServer();
-
         adapter = new RequestsAdapter(getActivity(), requests);
-
         recyclerView.setAdapter(adapter);
         return rootView;
     }
 
-    private void getRequestsFromServer() {
+    private void getRequestsFromServer(String url_req, final String sort, final String filter) {
         final String fName = user.getFirstName();
         final String lName = user.getLastName();
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading data...");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_GET_REQUESTS, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_req, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (!jsonObject.getBoolean("error")) {
-                    JSONArray array = jsonObject.getJSONArray("requests");
+                        JSONArray array = jsonObject.getJSONArray("requests");
+                        requests.clear();
 
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject object = array.getJSONObject(i);
-                        RoomRequest roomRequest = new RoomRequest(object.getString("department"),
-                                object.getString("dateOfNotif"), object.getString("subject"), object.getString("sch_time"),
-                                object.getString("sch_days"), object.getString("room"), object.getString("classActivities"),
-                                object.getString("actDate"), object.getString("actTime"), object.getString("actVenue"),
-                                object.getString("instructor"), object.getString("adminRemark"), object.getString("adminName"));
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject object = array.getJSONObject(i);
+                            RoomRequest roomRequest = new RoomRequest(object.getString("department"),
+                                    object.getString("dateOfNotif"), object.getString("subject"), object.getString("sch_time"),
+                                    object.getString("sch_days"), object.getString("room"), object.getString("classActivities"),
+                                    object.getString("actDate"), object.getString("actTime"), object.getString("actVenue"),
+                                    object.getString("instructor"), object.getString("adminRemark"), object.getString("adminName"));
 
-                        requests.add(roomRequest);
-                    }
+                            requests.add(roomRequest);
+                        }
 
-                    adapter = new RequestsAdapter(getActivity(), requests);
-                    recyclerView.setAdapter(adapter);
-                    }else {
+                        adapter = new RequestsAdapter(getActivity(), requests);
+                        recyclerView.setAdapter(adapter);
+                    } else {
                         Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
 
                     }
@@ -118,11 +124,44 @@ public class RequestsFragment extends Fragment {
                 Map<String, String> params = new HashMap<>();
                 params.put("firstName", fName);
                 params.put("lastName", lName);
+                params.put("sort", sort);
+                params.put("filter", filter);
                 return params;
             }
         };
         TouchimsSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
 
     }
+
+    private void spinnersOnItemSelected() {
+        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                getRequestsFromServer(Constants.URL_GET_REQUESTS,
+                        spinnerSort.getSelectedItem().toString(), spinnerFilter.getSelectedItem().toString());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinnerFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                getRequestsFromServer(Constants.URL_GET_REQUESTS,
+                        spinnerSort.getSelectedItem().toString(), spinnerFilter.getSelectedItem().toString());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
 
 }
