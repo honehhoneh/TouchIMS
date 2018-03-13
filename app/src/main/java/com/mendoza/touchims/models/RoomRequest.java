@@ -1,14 +1,19 @@
 package com.mendoza.touchims.models;
 
-public class Request {
+public class RoomRequest {
 
     private String department, dateOfNotif, subject, sch_time, sch_days, room, classActivities, actDate, actTime, actVenue, instructor,adminRemark, adminName;
 
-    public Request(){
+    public RoomRequest(){
 
     }
 
-    public Request(String department, String dateOfNotif, String subject, String sch_time, String sch_days, String room, String classActivities, String actDate, String actTime, String actVenue, String instructor, String adminRemark, String adminName) {
+    public RoomRequest(String classActivities, String dateOfNotif){
+        this.classActivities = classActivities;
+        this.dateOfNotif = dateOfNotif;
+    }
+
+    public RoomRequest(String department, String dateOfNotif, String subject, String sch_time, String sch_days, String room, String classActivities, String actDate, String actTime, String actVenue, String instructor, String adminRemark, String adminName) {
         this.department = department;
         this.dateOfNotif = dateOfNotif;
         this.subject = subject;
