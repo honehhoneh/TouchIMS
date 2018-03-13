@@ -101,24 +101,16 @@ public class FacultyProfileActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_change_room) {
-            getSupportActionBar().setTitle("Touch IMS");
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frame_container, new ChangeRoomRequestFragment())
-                    .commit();
-
-
-        } else if (id == R.id.nav_reports) {
+       if (id == R.id.nav_reports) {
             getSupportActionBar().setTitle("Reports");
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frame_container, new ReportsFragment())
                     .commit();
 
         } else if (id == R.id.nav_sent_requests) {
-            getSupportActionBar().setTitle("Sent Requests");
+            getSupportActionBar().setTitle("Requests");
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frame_container, new RequestsFragment())
                     .commit();

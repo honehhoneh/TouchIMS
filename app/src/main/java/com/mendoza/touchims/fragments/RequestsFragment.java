@@ -2,7 +2,9 @@ package com.mendoza.touchims.fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,6 +42,7 @@ public class RequestsFragment extends Fragment {
     private RecyclerView recyclerView;
     private RequestsAdapter adapter;
     private Spinner spinnerSort, spinnerFilter;
+    private FloatingActionButton fab;
     User user;
 
     private List<RoomRequest> requests;
@@ -61,6 +64,19 @@ public class RequestsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        fab = rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment newFragment = new ChangeRoomRequestFragment() ;
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_container, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+
+            }
+        });
         spinnerSort = rootView.findViewById(R.id.spnSort);
         spinnerFilter = rootView.findViewById(R.id.spnFilter);
 
