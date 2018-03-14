@@ -11,7 +11,7 @@
         <item
             android:id="@+id/nav_sent_requests"
             android:icon="@drawable/ic_menu_inbox"
-            android:title="Requests" />
+            android:title="Change Room Requests" />
 
     </group>
 

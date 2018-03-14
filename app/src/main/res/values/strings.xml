@@ -64,9 +64,25 @@
         <item>No Filter</item>
     </string-array>
 
+    <string-array name="buildings">
+        <item>Mt. Carmel</item>
+        <item>San Agustin</item>
+        <item>San Jose</item>
+        <item>San Nicolas</item>
+        <item>St. Ezekiel Moreno</item>
+    </string-array>
+
+    <string-array name="floors">
+        <item>1st</item>
+        <item>2nd</item>
+        <item>3rd</item>
+        <item>4th</item>
+        <item>5th</item>
+        <item>6th</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_sample">SAMPLE</string>
 
     <string name="action_settings">Settings</string>
 </resources>

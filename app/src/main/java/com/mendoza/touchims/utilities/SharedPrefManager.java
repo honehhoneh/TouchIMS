@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.mendoza.touchims.models.Term;
 import com.mendoza.touchims.models.User;
 import com.mendoza.touchims.views.LoginActivity;
 
@@ -14,6 +15,11 @@ public class SharedPrefManager {
     private static final String KEY_IDNUM = "idNum";
     private static final String KEY_CLASSIFICATION = "classification";
     private static final String KEY_COLLEGE = "college";
+    private static final String KEY_TERM_CD = "term_cd";
+    private static final String KEY_PERIOD_START = "periodStart";
+    private static final String KEY_PERIOD_END = "periodEnd";
+    private static final String KEY_TERM = "term";
+
 
     private static SharedPrefManager mInstance;
     private static Context mCtx;
@@ -29,7 +35,7 @@ public class SharedPrefManager {
         return mInstance;
     }
 
-    public boolean userLogin(User user){
+    public boolean userLogin(User user,Term term){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_FIRSTNAME, user.getFirstName());
@@ -37,6 +43,10 @@ public class SharedPrefManager {
         editor.putInt(KEY_IDNUM, user.getIdNum());
         editor.putString(KEY_CLASSIFICATION, user.getClassification());
         editor.putString(KEY_COLLEGE, user.getCollege());
+        editor.putInt(KEY_TERM_CD, term.getTerm_cd());
+        editor.putString(KEY_PERIOD_START, term.getPeriodStart());
+        editor.putString(KEY_PERIOD_END, term.getPeriodEnd());
+        editor.putString(KEY_TERM, term.getTerm());
         editor.apply();
 
         return true;
@@ -45,6 +55,15 @@ public class SharedPrefManager {
     public boolean isLoggedIn(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return (sharedPreferences.getInt(KEY_IDNUM, -1) != -1);
+    }
+
+    public Term getTerm(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return new Term(sharedPreferences.getInt(KEY_TERM_CD, -1),
+                        sharedPreferences.getString(KEY_PERIOD_START, null),
+                        sharedPreferences.getString(KEY_PERIOD_END, null),
+                        sharedPreferences.getString(KEY_TERM, null));
+
     }
 
     public User getUser(){

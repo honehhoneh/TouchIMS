@@ -13,26 +13,48 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#bdc3c7"
-            android:orientation="horizontal">
+            android:background="#9E9E9E"
+            android:orientation="horizontal"
+            android:layout_marginBottom="7dp">
 
-            <Spinner
-                android:id="@+id/spnSort"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_margin="7dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/colorAccent"
-                android:entries="@array/sort" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="3.5dp"
+                android:layout_marginTop="7dp"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:layout_weight="1">
 
-            <Spinner
-                android:id="@+id/spnFilter"
+                <Spinner
+                    android:id="@+id/spnSort"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:entries="@array/sort" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_margin="7dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/colorAccent"
-                android:entries="@array/filter" />
+                android:layout_marginLeft="3.5dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="7dp"
+                android:background="#fff"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/spnFilter"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:entries="@array/filter" />
+            </LinearLayout>
+
         </LinearLayout>
 
 
@@ -52,4 +74,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_note_add" />
+
 </FrameLayout>

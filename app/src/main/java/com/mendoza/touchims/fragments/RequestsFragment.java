@@ -65,6 +65,7 @@ public class RequestsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         fab = rootView.findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +78,7 @@ public class RequestsFragment extends Fragment {
 
             }
         });
+
         spinnerSort = rootView.findViewById(R.id.spnSort);
         spinnerFilter = rootView.findViewById(R.id.spnFilter);
 

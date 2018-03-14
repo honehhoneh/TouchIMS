@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import com.mendoza.touchims.models.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -93,6 +95,8 @@ public class ChangeRoomRequestFragment extends Fragment {
             public void onClick(View view) {
                 if (validateForm()) {
                     sendRequest();
+
+
                 }
             }
         });
@@ -195,8 +199,7 @@ public class ChangeRoomRequestFragment extends Fragment {
     private void sendRequest() {
 
         User user = SharedPrefManager.getInstance(getActivity()).getUser();
-//        Toast.makeText(getContext(), "SEEEEEEEND", Toast.LENGTH_SHORT).show();
-        final String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date());
+        final String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         final String dept, days, subj, rm, strt, end, act, actdate, actend, actstart, actvenue, fullName;
         fullName = user.getLastName() + "," + user.getFirstName();
         dept = mDept.getSelectedItem().toString();
@@ -206,13 +209,23 @@ public class ChangeRoomRequestFragment extends Fragment {
         strt = mTimeStart.getText().toString();
         end = mTimeEnd.getText().toString();
         act = mActivity.getText().toString();
-        actdate = mActDate.getText().toString();
+
+        SimpleDateFormat oldFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+        SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date newDate = null;
+        try {
+            newDate = oldFormat.parse(mActDate.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        actdate = newFormat.format(newDate);
+
         actstart = mActStart.getText().toString();
         actend = mActEnd.getText().toString();
         actvenue = mActVenue.getText().toString();
 
 
-        progressDialog.setMessage("Registering user...");
+        progressDialog.setMessage("Sending request...");
         progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_CHANGE_ROOM_REQUEST,
                 new Response.Listener<String>() {
@@ -223,10 +236,10 @@ public class ChangeRoomRequestFragment extends Fragment {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if(jsonObject.getString("error").equals("false")){
-                            Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-                            getFragmentManager().beginTransaction().replace(R.id.frame_container, new ReportsFragment()).commit();
+                            Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            getFragmentManager().beginTransaction().replace(R.id.frame_container, new RequestsFragment()).commit();
                             }else{
-                                Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -249,7 +262,7 @@ public class ChangeRoomRequestFragment extends Fragment {
                 params.put("sch_days", days);
                 params.put("room", rm);
                 params.put("classActivities", act);
-                params.put("actDate", actdate);
+                params.put("actDate",actdate);
                 params.put("actTime", actstart + " - "+ actend);
                 params.put("actVenue", actvenue);
                 params.put("instructor", fullName);

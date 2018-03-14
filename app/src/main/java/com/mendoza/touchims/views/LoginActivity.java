@@ -14,11 +14,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.mendoza.touchims.utilities.Constants;
 import com.mendoza.touchims.R;
+import com.mendoza.touchims.models.Term;
+import com.mendoza.touchims.models.User;
+import com.mendoza.touchims.utilities.Constants;
 import com.mendoza.touchims.utilities.SharedPrefManager;
 import com.mendoza.touchims.utilities.TouchimsSingleton;
-import com.mendoza.touchims.models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,11 +41,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
             User user = SharedPrefManager.getInstance(this).getUser();
+            Term term = SharedPrefManager.getInstance(this).getTerm();
+
+
             if (user.getClassification().toUpperCase().equals("STUDENT")) {
                 startActivity(new Intent(this, StudentProfileActivity.class));
             } else {
                 startActivity(new Intent(this, FacultyProfileActivity.class));
-
             }
             return;
         }
@@ -81,6 +84,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void userLogin() {
         final String idNum = mIdNumView.getText().toString().trim();
         final String pass = mPasswordView.getText().toString().trim();
+//        final String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        final String currentDate = "2016-10-03";
 
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
@@ -98,20 +103,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 user.setClassification(jsonObject.getString("classification"));
                                 user.setCollege(jsonObject.getString("college"));
 
+                                Term term = new Term();
+                                term.setTerm_cd(jsonObject.getInt("term_cd"));
+                                term.setPeriodStart(jsonObject.getString("periodStart"));
+                                term.setPeriodEnd(jsonObject.getString("periodEnd"));
+                                term.setTerm(jsonObject.getString("term"));
+
 
                                 SharedPrefManager.getInstance(getApplicationContext())
-                                        .userLogin(user);
+                                        .userLogin(user, term);
 
                                 if (user.getClassification().toUpperCase().equals("STUDENT")) {
                                     Intent intent = new Intent(LoginActivity.this, StudentProfileActivity.class);
                                     startActivity(intent);
                                     finish();
+                                    Toast.makeText(LoginActivity.this, term.getTerm(), Toast.LENGTH_SHORT).show();
+
 //                                    Toast.makeText(LoginActivity.this, user.getClassification().toUpperCase(), Toast.LENGTH_SHORT).show();
                                 } else if (user.getClassification().toUpperCase().equals("CHAIRPERSON") || user.getClassification().toUpperCase().equals("FACULTY") || user.getClassification().toUpperCase().equals("ADMIN") || user.getClassification().toUpperCase().equals("DEAN")) {
                                     Intent intent = new Intent(LoginActivity.this, FacultyProfileActivity.class);
                                     startActivity(intent);
                                     finish();
-//                                    Toast.makeText(LoginActivity.this, user.getClassification().toUpperCase(), Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(LoginActivity.this, term.getTerm(), Toast.LENGTH_SHORT).show();
 
                                 }
                             } else {
@@ -134,6 +147,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Map<String, String> params = new HashMap<>();
                 params.put("idNum", idNum);
                 params.put("password", pass);
+                params.put("currentDate", currentDate);
                 return params;
             }
         };

@@ -2,11 +2,8 @@ package com.mendoza.touchims.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,11 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mendoza.touchims.R;
-import com.mendoza.touchims.fragments.ChangeRoomRequestFragment;
-import com.mendoza.touchims.fragments.RequestsFragment;
 import com.mendoza.touchims.models.RoomRequest;
 import com.mendoza.touchims.views.RequestDetailsActivity;
 
