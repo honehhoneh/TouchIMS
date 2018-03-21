@@ -13,17 +13,29 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mendoza.touchims.R;
-import com.mendoza.touchims.utilities.SharedPrefManager;
-import com.mendoza.touchims.interfaces.TouchIMSInterface;
+import com.mendoza.touchims.fragments.FloorFragment;
+import com.mendoza.touchims.fragments.RemarksFragment;
 import com.mendoza.touchims.models.User;
+import com.mendoza.touchims.utilities.SharedPrefManager;
 
 public class StudentProfileActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TouchIMSInterface {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     TextView navFullName;
+    Spinner spinnerBldgs, spinnerFloors;
+    User user;
+    LinearLayout layout;
+
+    String[] floorArray;
+    ArrayAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +55,27 @@ public class StudentProfileActivity extends AppCompatActivity
             startActivity(new Intent(this, LoginActivity.class));
         }
 
-        User user = SharedPrefManager.getInstance(this).getUser();
+        user = SharedPrefManager.getInstance(this).getUser();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        layout = findViewById(R.id.tabs);
+        layout.setVisibility(LinearLayout.GONE);
+
+        spinnerBldgs = findViewById(R.id.spnBldgs);
+        spinnerFloors = findViewById(R.id.spnFloors);
+        locationViews();
+
+
+//        default page
+        navigationView.setCheckedItem(R.id.nav_remarks);
+        getSupportActionBar().setTitle("Remarks Made");
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.student_frame_container, new RemarksFragment())
+                .commit();
+
+
         View headerView = navigationView.getHeaderView(0);
         navFullName = headerView.findViewById(R.id.tvName);
         navFullName.setText(user.getFirstName() + " " + user.getLastName());
@@ -73,15 +102,7 @@ public class StudentProfileActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -89,13 +110,26 @@ public class StudentProfileActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_check) {
-            // Handle the camera action
-        } else if (id == R.id.nav_remarks) {
+            getSupportActionBar().setTitle("Monitoring");
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.student_frame_container, new FloorFragment())
+                    .addToBackStack(null)
+                    .commit();
+            layout.setVisibility(LinearLayout.VISIBLE);
+            spinnerFloors.setSelection(0);
+            spinnerBldgs.setSelection(0);
 
+
+        } else if (id == R.id.nav_remarks) {
+            getSupportActionBar().setTitle("Remarks Made");
+            layout.setVisibility(LinearLayout.GONE);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.student_frame_container, new RemarksFragment())
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_logout) {
             logOut();
         }
@@ -105,7 +139,6 @@ public class StudentProfileActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
     public void logOut() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Are you sure?");
@@ -126,5 +159,95 @@ public class StudentProfileActivity extends AppCompatActivity
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+
+    public void locationViews() {
+        spinnerBldgs.setPrompt("Select Bldg(s)");
+
+        spinnerBldgs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (spinnerBldgs.getSelectedItemPosition() == 0) {
+                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getBaseContext(),
+                            R.array.main_floors, android.R.layout.simple_spinner_item);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerFloors.setPrompt("Select Floor");
+                    spinnerFloors.setAdapter(adapter);
+                } else if (spinnerBldgs.getSelectedItemPosition() == 1) {
+                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getBaseContext(),
+                            R.array.sem_floors, android.R.layout.simple_spinner_item);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerFloors.setPrompt("Select Floor");
+                    spinnerFloors.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        spinnerFloors.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (spinnerBldgs.getSelectedItemPosition() == 0) {
+                    switch (spinnerFloors.getSelectedItem().toString()){
+                        case "Basement":
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.student_frame_container, FloorFragment.newInstance("MAIN", 0))
+                                    .commit();
+                            break;
+                        case "Third Floor":
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.student_frame_container, FloorFragment.newInstance("MAIN", 3))
+                                    .commit();
+                            break;
+                        default:
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.student_frame_container, new FloorFragment())
+                                    .commit();
+                            break;
+                    }
+                } else if (spinnerBldgs.getSelectedItemPosition() == 1) {
+                    switch (spinnerFloors.getSelectedItem().toString()) {
+                        case "Second Floor":
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.student_frame_container, FloorFragment.newInstance("SEM", 2))
+                                    .commit();
+                            break;
+                        case "Third Floor":
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.student_frame_container, FloorFragment.newInstance("SEM", 3))
+                                    .commit();
+                            break;
+                        case "Fourth Floor":
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.student_frame_container, FloorFragment.newInstance("SEM", 4))
+                                    .commit();
+                            break;
+                        case "Fifth Floor":
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.student_frame_container, FloorFragment.newInstance("SEM", 5))
+                                    .commit();
+                            break;
+                        default:
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.student_frame_container, new FloorFragment())
+                                    .commit();
+                            break;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 }

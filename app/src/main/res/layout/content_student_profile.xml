@@ -5,13 +5,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.mendoza.touchims.views.StudentProfileActivity"
     tools:showIn="@layout/app_bar_student_profile">
 
+    <LinearLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#9E9E9E"
+        android:orientation="horizontal"
+        android:layout_marginBottom="7dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="3.5dp"
+            android:layout_marginTop="7dp"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <Spinner
+                android:id="@+id/spnBldgs"
+                android:spinnerMode="dialog"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/colorAccent"
+                android:entries="@array/buildings" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="3.5dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="7dp"
+            android:background="#fff"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/spnFloors"
+                android:spinnerMode="dialog"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/colorAccent"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
     <FrameLayout
-        android:id="@+id/frame_container"
+        android:background="@color/white"
+        android:id="@+id/student_frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
 </LinearLayout>
+

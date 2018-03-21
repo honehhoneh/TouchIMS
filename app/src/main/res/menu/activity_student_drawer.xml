@@ -5,13 +5,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_check"
-            android:icon="@drawable/ic_menu_attendance"
-            android:title="Attendance Checking" />
-        <item
             android:id="@+id/nav_remarks"
             android:icon="@drawable/ic_menu_reports"
             android:title="Remarks Made" />
+        <item
+            android:id="@+id/nav_check"
+            android:icon="@drawable/ic_menu_attendance"
+            android:title="Attendance Monitoring" />
+        <item
+            android:id="@+id/nav_sched"
+            android:icon="@drawable/ic_menu_schedule"
+            android:title="My Schedule"/>
 
     </group>
 

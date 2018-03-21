@@ -2,14 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    tools:context="com.mendoza.touchims.fragments.ReportsFragment">
+    tools:context="com.mendoza.touchims.fragments.RemarksFragment">
 
     <TextView
-        android:id="@+id/tvText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="TEXT HERE"
-        />
+        android:gravity="center"
+        android:text="THIS IS REMARKS FRAGMENT"
+        android:textAlignment="center" />
 
 </FrameLayout>

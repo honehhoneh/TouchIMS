@@ -10,7 +10,7 @@
     tools:showIn="@layout/app_bar_faculty_profile">
 
     <FrameLayout
-        android:id="@+id/frame_container"
+        android:id="@+id/faculty_frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

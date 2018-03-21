@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.mendoza.touchims.R;
 import com.mendoza.touchims.adapters.RequestsAdapter;
 import com.mendoza.touchims.models.RoomRequest;
+import com.mendoza.touchims.models.Term;
 import com.mendoza.touchims.models.User;
 import com.mendoza.touchims.utilities.Constants;
 import com.mendoza.touchims.utilities.SharedPrefManager;
@@ -43,7 +44,8 @@ public class RequestsFragment extends Fragment {
     private RequestsAdapter adapter;
     private Spinner spinnerSort, spinnerFilter;
     private FloatingActionButton fab;
-    User user;
+    private User user;
+    private Term term;
 
     private List<RoomRequest> requests;
 
@@ -71,7 +73,7 @@ public class RequestsFragment extends Fragment {
             public void onClick(View view) {
                 Fragment newFragment = new ChangeRoomRequestFragment() ;
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, newFragment);
+                transaction.replace(R.id.faculty_frame_container, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
 
@@ -83,6 +85,7 @@ public class RequestsFragment extends Fragment {
         spinnerFilter = rootView.findViewById(R.id.spnFilter);
 
         user = SharedPrefManager.getInstance(getActivity()).getUser();
+        term = SharedPrefManager.getInstance(getActivity()).getTerm();
 
         spinnersOnItemSelected();
         spinnerFilter.setSelection(3);
@@ -96,6 +99,7 @@ public class RequestsFragment extends Fragment {
     private void getRequestsFromServer(String url_req, final String sort, final String filter) {
         final String fName = user.getFirstName();
         final String lName = user.getLastName();
+        final int termCd = term.getTerm_cd();
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading data...");
         progressDialog.show();
@@ -144,6 +148,7 @@ public class RequestsFragment extends Fragment {
                 params.put("lastName", lName);
                 params.put("sort", sort);
                 params.put("filter", filter);
+                params.put("term_cd", Integer.toString(termCd));
                 return params;
             }
         };

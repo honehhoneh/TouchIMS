@@ -19,16 +19,13 @@ import android.widget.TextView;
 import com.mendoza.touchims.R;
 import com.mendoza.touchims.fragments.RequestsFragment;
 import com.mendoza.touchims.utilities.SharedPrefManager;
-import com.mendoza.touchims.fragments.ChangeRoomRequestFragment;
 import com.mendoza.touchims.fragments.ReportsFragment;
-import com.mendoza.touchims.interfaces.TouchIMSInterface;
 import com.mendoza.touchims.models.User;
 
 public class FacultyProfileActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TouchIMSInterface {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     TextView navFullName;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +54,7 @@ public class FacultyProfileActivity extends AppCompatActivity
         navigationView.setCheckedItem(R.id.nav_reports);
         getSupportActionBar().setTitle("Reports");
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_container, new ReportsFragment())
+                .replace(R.id.faculty_frame_container, new ReportsFragment())
                 .commit();
 
         View headerView = navigationView.getHeaderView(0);
@@ -106,13 +103,13 @@ public class FacultyProfileActivity extends AppCompatActivity
        if (id == R.id.nav_reports) {
             getSupportActionBar().setTitle("Reports");
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frame_container, new ReportsFragment())
+                    .replace(R.id.faculty_frame_container, new ReportsFragment())
                     .commit();
 
         } else if (id == R.id.nav_sent_requests) {
             getSupportActionBar().setTitle("Requests");
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frame_container, new RequestsFragment())
+                    .replace(R.id.faculty_frame_container, new RequestsFragment())
                     .commit();
         } else if (id == R.id.nav_logout) {
             logOut();
@@ -124,7 +121,6 @@ public class FacultyProfileActivity extends AppCompatActivity
     }
 
 
-    @Override
     public void logOut() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Are you sure?");

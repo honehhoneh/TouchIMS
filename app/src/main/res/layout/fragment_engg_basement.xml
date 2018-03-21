@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:layout_gravity="center"
+    android:background="@drawable/main_engg_basement">
+
+
+    <Button
+        android:id="@+id/btnEnggb1"
+        android:layout_width="68dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="73dp"
+        android:layout_marginTop="76dp"
+        android:backgroundTint="@color/orange"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnEnggb2"
+        android:layout_width="56dp"
+        android:layout_height="43dp"
+        android:layout_alignStart="@+id/btnEnggb1"
+        android:layout_alignTop="@+id/btnEnggb1"
+        android:layout_marginTop="49.5dp"
+        android:backgroundTint="@color/orange"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnEnggb3"
+        android:layout_width="32dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="-7dp"
+        android:layout_marginTop="103dp"
+        android:layout_toEndOf="@+id/btnEnggb1"
+        android:backgroundTint="@color/orange"
+        android:textSize="7.5sp" />
+
+    <Button
+        android:id="@+id/btnEnggb4"
+        android:layout_width="56dp"
+        android:layout_height="75dp"
+        android:layout_alignEnd="@+id/btnEnggb2"
+        android:layout_below="@+id/btnEnggb2"
+        android:layout_marginTop="7dp"
+        android:backgroundTint="@color/orange"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnEnggb5"
+        android:layout_width="56dp"
+        android:layout_height="48dp"
+        android:layout_alignBottom="@+id/btnEnggb4"
+        android:layout_marginStart="-7dp"
+        android:layout_toEndOf="@+id/btnEnggb4"
+        android:backgroundTint="@color/orange"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnEnggb6"
+        android:layout_width="56dp"
+        android:layout_height="84dp"
+        android:layout_alignBottom="@id/btnEnggb5"
+        android:layout_below="@+id/btnEnggb2"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="-3dp"
+        android:layout_toEndOf="@+id/btnEnggb3"
+        android:backgroundTint="@color/orange"
+        android:textSize="10sp" />
+</RelativeLayout>

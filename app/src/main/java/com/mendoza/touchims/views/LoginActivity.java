@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         final String idNum = mIdNumView.getText().toString().trim();
         final String pass = mPasswordView.getText().toString().trim();
 //        final String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        final String currentDate = "2016-10-03";
+//        final String currentDate = "2016-10-03";
 
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
@@ -117,15 +117,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Intent intent = new Intent(LoginActivity.this, StudentProfileActivity.class);
                                     startActivity(intent);
                                     finish();
-                                    Toast.makeText(LoginActivity.this, term.getTerm(), Toast.LENGTH_SHORT).show();
-
-//                                    Toast.makeText(LoginActivity.this, user.getClassification().toUpperCase(), Toast.LENGTH_SHORT).show();
                                 } else if (user.getClassification().toUpperCase().equals("CHAIRPERSON") || user.getClassification().toUpperCase().equals("FACULTY") || user.getClassification().toUpperCase().equals("ADMIN") || user.getClassification().toUpperCase().equals("DEAN")) {
                                     Intent intent = new Intent(LoginActivity.this, FacultyProfileActivity.class);
                                     startActivity(intent);
                                     finish();
-//                                    Toast.makeText(LoginActivity.this, term.getTerm(), Toast.LENGTH_SHORT).show();
-
                                 }
                             } else {
                                 Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
@@ -147,7 +142,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Map<String, String> params = new HashMap<>();
                 params.put("idNum", idNum);
                 params.put("password", pass);
-                params.put("currentDate", currentDate);
+                params.put("currentDate", Constants.CURRENT_DATE);
                 return params;
             }
         };

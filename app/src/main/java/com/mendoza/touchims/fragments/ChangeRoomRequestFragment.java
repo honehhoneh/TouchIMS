@@ -2,16 +2,16 @@ package com.mendoza.touchims.fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -19,11 +19,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.mendoza.touchims.utilities.Constants;
 import com.mendoza.touchims.R;
+import com.mendoza.touchims.models.Course;
+import com.mendoza.touchims.models.User;
+import com.mendoza.touchims.utilities.Constants;
 import com.mendoza.touchims.utilities.SharedPrefManager;
 import com.mendoza.touchims.utilities.TouchimsSingleton;
-import com.mendoza.touchims.models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +39,16 @@ import java.util.Map;
 public class ChangeRoomRequestFragment extends Fragment {
 
 
+    ProgressDialog progressDialog;
+    TextView tvOffer;
+    EditText mOfferNo, mDetails, mActivity, mActDate, mActVenue, mActStart, mActEnd;
+    Button btnEnter, btnSend;
+    Course course = new Course();
+    String fullName = "";
+    User user = SharedPrefManager.getInstance(getActivity()).getUser();
+    ConstraintLayout clayout;
+
+
     public ChangeRoomRequestFragment() {
 
     }
@@ -45,16 +56,12 @@ public class ChangeRoomRequestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_change_room_request, container, false);
+
         findViews(rootView);
         viewClicks();
+        fullName = user.getLastName() + ", " + user.getFirstName();
         return rootView;
     }
-
-    ProgressDialog progressDialog;
-    Spinner mDept, mDays;
-    EditText mSubject, mRoom, mTimeStart, mTimeEnd;
-    EditText mActivity, mActDate, mActVenue, mActStart, mActEnd;
-    Button btnSend;
 
 
     public void showDatePickerDialog(View v) {
@@ -69,17 +76,13 @@ public class ChangeRoomRequestFragment extends Fragment {
 
     private void findViews(View view) {
         progressDialog = new ProgressDialog(getContext());
+        clayout = view.findViewById(R.id.reqLayout);
+        clayout.setVisibility(View.GONE);
+        tvOffer = view.findViewById(R.id.textView);
 
-        mDept = view.findViewById(R.id.spinnerDept);
-        mDept.setFocusable(true);
-        mDept.setFocusableInTouchMode(true);
-        mDept.requestFocus();
-        mDays = view.findViewById(R.id.spinnerDays);
+        mOfferNo = view.findViewById(R.id.edtOfferNo);
+        mDetails = view.findViewById(R.id.edtDetails);
 
-        mSubject = view.findViewById(R.id.edtSubject);
-        mRoom = view.findViewById(R.id.edtRoom);
-        mTimeStart = view.findViewById(R.id.edtTimeStart);
-        mTimeEnd = view.findViewById(R.id.edtTimeEnd);
         mActivity = view.findViewById(R.id.edtActivity);
         mActVenue = view.findViewById(R.id.edtActVenue);
         mActDate = view.findViewById(R.id.edtActDate);
@@ -87,6 +90,7 @@ public class ChangeRoomRequestFragment extends Fragment {
         mActEnd = view.findViewById(R.id.edtActEnd);
 
         btnSend = view.findViewById(R.id.btnSend);
+        btnEnter = view.findViewById(R.id.btnEnter);
     }
 
     private void viewClicks() {
@@ -95,21 +99,17 @@ public class ChangeRoomRequestFragment extends Fragment {
             public void onClick(View view) {
                 if (validateForm()) {
                     sendRequest();
-
-
                 }
             }
         });
-        mTimeStart.setOnClickListener(new View.OnClickListener() {
+
+        btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showTimePickerDialog(view);
-            }
-        });
-        mTimeEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showTimePickerDialog(view);
+                if (validateOfferNo()) {
+                    getSubjectDetails();
+
+                }
             }
         });
         mActStart.setOnClickListener(new View.OnClickListener() {
@@ -132,32 +132,23 @@ public class ChangeRoomRequestFragment extends Fragment {
         });
     }
 
+
+    private boolean validateOfferNo() {
+        boolean valid = true;
+
+        if (TextUtils.isEmpty(mOfferNo.getText().toString())) {
+            mOfferNo.setError("Required.");
+            valid = false;
+        } else {
+            mActivity.setError(null);
+        }
+
+        return valid;
+    }
+
     private boolean validateForm() {
         boolean valid = true;
-        if (TextUtils.isEmpty(mSubject.getText().toString())) {
-            mSubject.setError("Required.");
-            valid = false;
-        } else {
-            mSubject.setError(null);
-        }
-        if (TextUtils.isEmpty(mRoom.getText().toString())) {
-            mRoom.setError("Required.");
-            valid = false;
-        } else {
-            mRoom.setError(null);
-        }
-        if (TextUtils.isEmpty(mTimeStart.getText().toString())) {
-            mTimeStart.setError("Required.");
-            valid = false;
-        } else {
-            mTimeStart.setError(null);
-        }
-        if (TextUtils.isEmpty(mTimeEnd.getText().toString())) {
-            mTimeEnd.setError("Required.");
-            valid = false;
-        } else {
-            mTimeEnd.setError(null);
-        }
+
         if (TextUtils.isEmpty(mActivity.getText().toString())) {
             mActivity.setError("Required.");
             valid = false;
@@ -188,26 +179,60 @@ public class ChangeRoomRequestFragment extends Fragment {
         } else {
             mActEnd.setError(null);
         }
-        if (mDept.getSelectedItem().toString().equals("Select department...") || mDays.getSelectedItem().toString().equals("Select schedule of class days...")) {
-            Toast.makeText(getContext(), "Invalid Department/Schedule", Toast.LENGTH_SHORT).show();
-            valid = false;
-        }
+
 
         return valid;
     }
 
-    private void sendRequest() {
+    private void getSubjectDetails() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_GET_SUBJECT_DETAILS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
 
-        User user = SharedPrefManager.getInstance(getActivity()).getUser();
-        final String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        final String dept, days, subj, rm, strt, end, act, actdate, actend, actstart, actvenue, fullName;
-        fullName = user.getLastName() + "," + user.getFirstName();
-        dept = mDept.getSelectedItem().toString();
-        days = mDays.getSelectedItem().toString();
-        subj = mSubject.getText().toString();
-        rm = mRoom.getText().toString();
-        strt = mTimeStart.getText().toString();
-        end = mTimeEnd.getText().toString();
+                            if (!jsonObject.getBoolean("error")) {
+                                course.setFac_id(jsonObject.getInt("fac_id"));
+                                course.setSubj_no(jsonObject.getString("subj_no"));
+                                course.setCredit_units(jsonObject.getInt("credit_units"));
+                                course.setSch_days(jsonObject.getString("sch_days"));
+                                course.setSch_time(jsonObject.getString("sch_time"));
+                                course.setRm(jsonObject.getString("rm"));
+                                course.setFac_name(jsonObject.getString("fac_name"));
+                                course.setDepartment(jsonObject.getString("department"));
+
+                                setViewVisibility();
+
+                            } else {
+                                Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("fac_name", fullName);
+                params.put("offer_no", mOfferNo.getText().toString());
+                return params;
+            }
+        };
+
+        TouchimsSingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
+    }
+
+    private void sendRequest() {
+        final String date = Constants.CURRENT_DATE;
+        final String act, actdate, actend, actstart, actvenue;
+
         act = mActivity.getText().toString();
 
         SimpleDateFormat oldFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
@@ -235,10 +260,10 @@ public class ChangeRoomRequestFragment extends Fragment {
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.getString("error").equals("false")){
-                            Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                            getFragmentManager().beginTransaction().replace(R.id.frame_container, new RequestsFragment()).commit();
-                            }else{
+                            if (jsonObject.getString("error").equals("false")) {
+                                Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                getFragmentManager().beginTransaction().replace(R.id.faculty_frame_container, new RequestsFragment()).commit();
+                            } else {
                                 Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
@@ -255,15 +280,15 @@ public class ChangeRoomRequestFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("department", dept);
+                params.put("department", course.getDepartment());
                 params.put("dateOfNotif", date);
-                params.put("subject", subj);
-                params.put("sch_time", strt + " - "+end);
-                params.put("sch_days", days);
-                params.put("room", rm);
+                params.put("subject", course.getSubj_no());
+                params.put("sch_time", course.getSch_time());
+                params.put("sch_days", course.getSch_days());
+                params.put("room", course.getRm());
                 params.put("classActivities", act);
-                params.put("actDate",actdate);
-                params.put("actTime", actstart + " - "+ actend);
+                params.put("actDate", actdate);
+                params.put("actTime", actstart + " - " + actend);
                 params.put("actVenue", actvenue);
                 params.put("instructor", fullName);
 
@@ -274,5 +299,13 @@ public class ChangeRoomRequestFragment extends Fragment {
         TouchimsSingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
     }
 
+    private void setViewVisibility() {
+        tvOffer.setText("Offer No.");
+        mOfferNo.setEnabled(false);
+        clayout.setVisibility(View.VISIBLE);
+        btnEnter.setVisibility(View.GONE);
+        mDetails.setText(course.getSubj_no().toUpperCase() + " " + course.getSch_time() + " at " + course.getRm());
+        mDetails.setEnabled(false);
 
+    }
 }

@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:layout_gravity="center"
+    android:background="@drawable/sem_5thfloor">
+
+
+    <Button
+        android:id="@+id/btnSem51"
+        android:layout_width="42dp"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="67dp"
+        android:backgroundTint="@color/colorLight"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnSem52"
+        android:layout_width="42dp"
+        android:layout_height="55dp"
+        android:layout_alignStart="@+id/btnSem51"
+        android:layout_alignTop="@+id/btnSem51"
+        android:layout_marginStart="35dp"
+        android:backgroundTint="@color/colorLight"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnSem53"
+        android:layout_width="36dp"
+        android:layout_height="55dp"
+        android:layout_alignTop="@+id/btnSem52"
+        android:layout_marginStart="94.5dp"
+        android:backgroundTint="@color/colorLight"
+        android:textSize="9sp" />
+
+    <Button
+        android:id="@+id/btnSem54"
+        android:layout_width="36dp"
+        android:layout_height="55dp"
+        android:layout_alignBottom="@+id/btnSem53"
+        android:layout_marginStart="41dp"
+        android:layout_toEndOf="@+id/btnSem53"
+        android:backgroundTint="@color/colorLight"
+        android:textSize="9sp" />
+
+    <Button
+        android:id="@+id/btnSem55"
+        android:layout_width="42dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="-7dp"
+        android:layout_alignBottom="@+id/btnSem54"
+        android:layout_toEndOf="@+id/btnSem54"
+        android:backgroundTint="@color/colorLight"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnSem56"
+        android:layout_width="42dp"
+        android:layout_height="55dp"
+        android:layout_alignBottom="@+id/btnSem55"
+        android:layout_marginStart="-8dp"
+        android:layout_toEndOf="@+id/btnSem55"
+        android:backgroundTint="@color/colorLight"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnSem57"
+        android:layout_width="42dp"
+        android:layout_height="55dp"
+        android:layout_alignStart="@+id/btnSem51"
+        android:layout_below="@+id/btnSem51"
+        android:layout_marginTop="55dp"
+        android:backgroundTint="@color/colorLight"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnSem58"
+        android:layout_width="41.5dp"
+        android:layout_height="55dp"
+        android:layout_alignStart="@+id/btnSem52"
+        android:layout_alignTop="@+id/btnSem57"
+        android:backgroundTint="@color/colorLight"
+        android:textSize="9sp" />
+
+    <Button
+        android:id="@+id/btnSem59"
+        android:layout_width="37dp"
+        android:layout_height="55dp"
+        android:layout_alignTop="@id/btnSem58"
+        android:layout_marginStart="94dp"
+        android:backgroundTint="@color/colorLight"
+        android:textSize="9sp" />
+
+    <Button
+        android:id="@+id/btnSem510"
+        android:layout_width="42dp"
+        android:layout_height="55dp"
+        android:layout_alignTop="@+id/btnSem59"
+        android:layout_toStartOf="@+id/btnSem55"
+        android:backgroundTint="@color/colorLight"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnSem511"
+        android:layout_width="42dp"
+        android:layout_height="55dp"
+        android:layout_alignBottom="@+id/btnSem510"
+        android:layout_alignStart="@+id/btnSem55"
+        android:backgroundTint="@color/colorLight"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnSem512"
+        android:layout_width="42dp"
+        android:layout_height="55dp"
+        android:layout_alignStart="@+id/btnSem56"
+        android:layout_alignTop="@+id/btnSem511"
+        android:backgroundTint="@color/colorLight"
+        android:textSize="10sp" />
+</RelativeLayout>

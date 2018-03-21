@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:layout_gravity="center"
+    android:background="@drawable/sem_2ndfloor">
+
+
+    <Button
+        android:id="@+id/btnSem21"
+        android:layout_width="36dp"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="67dp"
+        android:backgroundTint="@color/colorLight"
+        android:ellipsize="end"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="7sp" />
+
+    <Button
+        android:id="@+id/btnSem22"
+        android:layout_width="25dp"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="67dp"
+        android:backgroundTint="@color/colorLight"
+        android:ellipsize="end"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="7sp" />
+
+    <Button
+        android:id="@+id/btnSem23"
+        android:layout_width="36dp"
+        android:layout_height="55dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/btnSem22"
+        android:layout_marginEnd="75dp"
+        android:backgroundTint="@color/colorLight"
+        android:text=""
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnSem24"
+        android:layout_width="59dp"
+        android:layout_height="55dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/btnSem23"
+        android:layout_marginEnd="22.5dp"
+        android:backgroundTint="@color/colorLight"
+        android:text=""
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnSem25"
+        android:layout_width="59dp"
+        android:layout_height="55dp"
+        android:layout_alignStart="@+id/btnSem21"
+        android:layout_below="@+id/btnSem21"
+        android:layout_marginTop="55dp"
+        android:backgroundTint="@color/colorLight"
+        android:text=""
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/btnSem26"
+        android:layout_width="36dp"
+        android:layout_height="55dp"
+        android:layout_alignTop="@+id/btnSem25"
+        android:layout_marginStart="77dp"
+        android:autoText="false"
+        android:backgroundTint="@color/colorLight"
+        android:text=""
+        android:textSize="7sp" />
+
+    <Button
+        android:id="@+id/btnSem27"
+        android:layout_width="36dp"
+        android:layout_height="55dp"
+        android:layout_alignEnd="@+id/btnSem24"
+        android:layout_alignTop="@+id/btnSem26"
+        android:autoText="false"
+        android:backgroundTint="@color/colorLight"
+        android:elegantTextHeight="false"
+        android:text=""
+        android:textSize="7sp" />
+
+
+</RelativeLayout>
