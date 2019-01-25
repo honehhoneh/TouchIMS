@@ -39,6 +39,10 @@
         <!-- android:screenOrientation="landscape" -->
 
         <activity android:name=".views.RequestDetailsActivity" />
+        <activity
+            android:name=".views.AttendanceActivity"
+            android:label="@string/title_activity_attendance"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

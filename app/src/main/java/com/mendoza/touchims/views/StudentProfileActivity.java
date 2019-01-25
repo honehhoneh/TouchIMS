@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -33,10 +35,6 @@ public class StudentProfileActivity extends AppCompatActivity
     User user;
     LinearLayout layout;
 
-    String[] floorArray;
-    ArrayAdapter adapter;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +63,7 @@ public class StudentProfileActivity extends AppCompatActivity
 
         spinnerBldgs = findViewById(R.id.spnBldgs);
         spinnerFloors = findViewById(R.id.spnFloors);
-        locationViews();
+        spinnerViews();
 
 
 //        default page
@@ -91,6 +89,24 @@ public class StudentProfileActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+
+        if (getSupportFragmentManager().findFragmentByTag("FloorFragment") != null) {
+
+            Fragment fragment = new FloorFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.student_frame_container, fragment, "FloorFragment")
+                    .detach(fragment)
+                    .attach(fragment)
+                    .commit();
+
+            layout.setVisibility(LinearLayout.VISIBLE);
+            spinnerFloors.setSelection(0);
+            spinnerBldgs.setSelection(0);
+//            onRestart();
+
+        } else {
+            layout.setVisibility(LinearLayout.GONE);
+        }
     }
 
     @Override
@@ -115,8 +131,7 @@ public class StudentProfileActivity extends AppCompatActivity
         if (id == R.id.nav_check) {
             getSupportActionBar().setTitle("Monitoring");
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.student_frame_container, new FloorFragment())
-                    .addToBackStack(null)
+                    .replace(R.id.student_frame_container, new FloorFragment(), "FloorFragment")
                     .commit();
             layout.setVisibility(LinearLayout.VISIBLE);
             spinnerFloors.setSelection(0);
@@ -128,7 +143,6 @@ public class StudentProfileActivity extends AppCompatActivity
             layout.setVisibility(LinearLayout.GONE);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.student_frame_container, new RemarksFragment())
-                    .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_logout) {
             logOut();
@@ -162,7 +176,7 @@ public class StudentProfileActivity extends AppCompatActivity
     }
 
 
-    public void locationViews() {
+    public void spinnerViews() {
         spinnerBldgs.setPrompt("Select Bldg(s)");
 
         spinnerBldgs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -194,20 +208,23 @@ public class StudentProfileActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (spinnerBldgs.getSelectedItemPosition() == 0) {
-                    switch (spinnerFloors.getSelectedItem().toString()){
+                    switch (spinnerFloors.getSelectedItem().toString()) {
                         case "Basement":
                             getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.student_frame_container, FloorFragment.newInstance("MAIN", 0))
+                                    .addToBackStack(null)
                                     .commit();
                             break;
                         case "Third Floor":
                             getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.student_frame_container, FloorFragment.newInstance("MAIN", 3))
+                                    .addToBackStack(null)
                                     .commit();
                             break;
                         default:
                             getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.student_frame_container, new FloorFragment())
+                                    .addToBackStack(null)
                                     .commit();
                             break;
                     }
@@ -216,26 +233,31 @@ public class StudentProfileActivity extends AppCompatActivity
                         case "Second Floor":
                             getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.student_frame_container, FloorFragment.newInstance("SEM", 2))
+                                    .addToBackStack(null)
                                     .commit();
                             break;
                         case "Third Floor":
                             getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.student_frame_container, FloorFragment.newInstance("SEM", 3))
+                                    .addToBackStack(null)
                                     .commit();
                             break;
                         case "Fourth Floor":
                             getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.student_frame_container, FloorFragment.newInstance("SEM", 4))
+                                    .addToBackStack(null)
                                     .commit();
                             break;
                         case "Fifth Floor":
                             getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.student_frame_container, FloorFragment.newInstance("SEM", 5))
+                                    .addToBackStack(null)
                                     .commit();
                             break;
                         default:
                             getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.student_frame_container, new FloorFragment())
+                                    .addToBackStack(null)
                                     .commit();
                             break;
                     }
@@ -249,5 +271,13 @@ public class StudentProfileActivity extends AppCompatActivity
             }
         });
 
+
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        //When BACK BUTTON is pressed, the activity on the stack is restarted
+        //Do what you want on the refresh procedure here
     }
 }

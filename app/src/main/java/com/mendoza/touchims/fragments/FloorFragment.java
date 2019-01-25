@@ -1,12 +1,15 @@
 package com.mendoza.touchims.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ import com.mendoza.touchims.R;
 import com.mendoza.touchims.models.Room;
 import com.mendoza.touchims.utilities.Constants;
 import com.mendoza.touchims.utilities.TouchimsSingleton;
+import com.mendoza.touchims.views.AttendanceActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,10 +50,11 @@ public class FloorFragment extends Fragment implements View.OnClickListener {
     private TextView message;
 
     private List<Room> rooms = new ArrayList<>();
-
+    private LinearLayout layout;
 
     public FloorFragment() {
     }
+
 
     public static FloorFragment newInstance(String bldg, int floor) {
         FloorFragment floorFragment = new FloorFragment();
@@ -236,7 +241,21 @@ public class FloorFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             default:
                 Button button= view.findViewById(view.getId());
-                Toast.makeText(getContext(),  button.getText().toString(), Toast.LENGTH_LONG).show();
+                String room = button.getText().toString();
+
+//                AttendanceCheckingFragment acf = new AttendanceCheckingFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("ROOM", room);
+//                acf.setArguments(bundle);
+//
+//                getFragmentManager().beginTransaction().replace(R.id.student_frame_container, acf, "Attendance")
+//                        .addToBackStack(null)
+//                        .commit();
+
+                Intent intent = new Intent(getActivity(), AttendanceActivity.class);
+                intent.putExtra("ROOM",room);
+                startActivity(intent);
+
                 break;
         }
     }
