@@ -6,14 +6,14 @@ import java.util.Locale;
 
 public class Constants {
     //    public static final String CURRENT_DATE = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        public static final String CURRENT_TIME = new SimpleDateFormat("hh:mm", Locale.getDefault()).format(new Date());
-        public static final String CURRENT_DAY = new SimpleDateFormat("EEEEE").format(new Date());
+    public static final String CURRENT_TIME = new SimpleDateFormat("hh:mm", Locale.getDefault()).format(new Date());
+    public static final String CURRENT_DAY = new SimpleDateFormat("EEEEE").format(new Date());
 
     public static final String CURRENT_DATE = "2016-10-03";
 
 
-    private static final String IP = "192.168.254.105"; //home
-    //    private static final String IP = "192.168.1.27"; //school
+    //    private static final String IP = "192.168.254.105"; //home
+    private static final String IP = "192.168.1.25"; //school
     private static final String ROOT_URL = "http://" + IP + "/touchims/mobile/v1/";
 
     public static final String URL_REGISTER = ROOT_URL + "registerUser.php";

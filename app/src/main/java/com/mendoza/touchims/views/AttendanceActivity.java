@@ -7,6 +7,8 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,27 +25,24 @@ import com.mendoza.touchims.utilities.TouchimsSingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import static com.mendoza.touchims.utilities.Constants.CURRENT_DAY;
 import static com.mendoza.touchims.utilities.Constants.CURRENT_TIME;
-import static java.time.LocalTime.parse;
 
-public class AttendanceActivity extends AppCompatActivity {
+public class AttendanceActivity extends AppCompatActivity{
 
     private List<Course> courses = new ArrayList<>();
 
     private String roomName;
-    private TextView tvRoomName, tvCurrentTime, tvCurrentDay, tvFacName, tvSchedule, tvHeader;
+    private TextView tvRoomName, tvFacName, tvSchedule, tvHeader, tvSubj;
+    private ConstraintLayout cl, cl2;
+    private Spinner spnRemarks, spnDismissal;
+    private CheckBox cboxFirst, cboxSecond;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +61,23 @@ public class AttendanceActivity extends AppCompatActivity {
 //        });
 
         tvRoomName = findViewById(R.id.tvRoomName);
-        tvCurrentTime = findViewById(R.id.tvCurrentTime);
-        tvCurrentDay = findViewById(R.id.tvCurrentDay);
         tvFacName = findViewById(R.id.tvFacName);
         tvSchedule = findViewById(R.id.tvSchedule);
         tvHeader = findViewById(R.id.tvHeader);
+        tvSubj = findViewById(R.id.tvSubj);
+        spnRemarks = findViewById(R.id.spnRemarks);
+        spnDismissal = findViewById(R.id.spnDismissal);
+        cboxFirst = findViewById(R.id.cboxFirst);
+        cboxSecond = findViewById(R.id.cboxSecond);
+
+//        spnRemarks.setEnabled(false);
+//        spnDismissal.setEnabled(false);
+
+
+        cl = findViewById(R.id.classInfoLayout);
+        cl.setVisibility(View.VISIBLE);
+        cl2 = findViewById(R.id.remarksLayout);
+        cl2.setVisibility(View.VISIBLE);
 
         Bundle extras = getIntent().getExtras();
 
@@ -75,7 +86,6 @@ public class AttendanceActivity extends AppCompatActivity {
         }
         getRoomDetails();
         tvRoomName.setText(roomName);
-        tvCurrentDay.setText(CURRENT_DAY);
 
 
     }
@@ -92,8 +102,8 @@ public class AttendanceActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             if (!jsonObject.getBoolean("error")) {
 
-                                ConstraintLayout cl = findViewById(R.id.classInfoLayout);
                                 cl.setVisibility(View.VISIBLE);
+                                cl2.setVisibility(View.VISIBLE);
 
                                 Course course = new Course();
                                 course.setOffer_no(jsonObject.getInt("offer_no"));
@@ -110,13 +120,15 @@ public class AttendanceActivity extends AppCompatActivity {
                                 String newEnd = jsonObject.getString("timeEnd").substring(0, 5);
                                 course.setTimeEnd(newEnd);
 
-                            tvFacName.setText(course.getFac_name().toUpperCase());
-                            tvSchedule.setText(course.getTimeStart() +" - "+ course.getTimeEnd());
+                                tvFacName.setText(course.getFac_name().toUpperCase());
+                                tvSchedule.setText(course.getTimeStart() + " - " + course.getTimeEnd());
+                                tvSubj.setText(course.getSubj_no());
 
                             } else {
                                 tvHeader.setText(jsonObject.getString("message"));
                                 ConstraintLayout cl = findViewById(R.id.classInfoLayout);
                                 cl.setVisibility(View.GONE);
+                                cl2.setVisibility(View.GONE);
 //                                Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
 
                             }

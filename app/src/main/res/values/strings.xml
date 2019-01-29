@@ -84,6 +84,20 @@
         <item>Sixth Floor</item>
     </string-array>
 
+
+    <string-array name="remarks">
+        <item>Please select...</item>
+        <item>Present</item>
+        <item>Absent</item>
+        <item>Late</item>
+    </string-array>
+
+    <string-array name="earlyDismissal">
+        <item>Please select...</item>
+        <item>No</item>
+        <item>Yes</item>
+    </string-array>
+
     <string name="action_settings">Settings</string>
     <string name="title_activity_attendance">Attendance</string>
 </resources>
