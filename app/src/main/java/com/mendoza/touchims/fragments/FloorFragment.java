@@ -277,6 +277,7 @@ public class FloorFragment extends Fragment implements View.OnClickListener {
                                     Room room = new Room(object.getString("roomName"), object.getInt("floor"), object.getString("bldg"), object.getInt("legend"));
                                     rooms.add(room);
                                 }
+
                                 setButtonTexts();
                             } else {
                                 Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();

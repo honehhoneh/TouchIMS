@@ -2,13 +2,13 @@ package com.mendoza.touchims.models;
 
 
 public class Course {
-    private int offer_no,term_cd, fac_id, credit_units;
-    private String  subj_no,sch_days, sch_time, rm, fac_name, department;
+    private int offer_no, term_cd, fac_id, credit_units;
+    private String subj_no, sch_days, sch_time, rm, fac_name, department, timeStart, timeEnd;
 
     public Course() {
     }
 
-    public Course(int offer_no, int term_cd, int fac_id, String subj_no, int credit_units,  String sch_days, String sch_time, String rm, String fac_name, String department) {
+    public Course(int offer_no, int term_cd, int fac_id, int credit_units, String subj_no, String sch_days, String sch_time, String rm, String fac_name, String department, String timeStart, String timeEnd) {
         this.offer_no = offer_no;
         this.term_cd = term_cd;
         this.fac_id = fac_id;
@@ -19,6 +19,28 @@ public class Course {
         this.rm = rm;
         this.fac_name = fac_name;
         this.department = department;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+    }
+
+    public Course(int offer_no, int fac_id, String subj_no, int credit_units, String sch_days, String rm, String fac_name, String dept, String timeStart, String timeEnd) {
+
+    }
+
+    public String getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(String timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public String getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(String timeEnd) {
+        this.timeEnd = timeEnd;
     }
 
     public int getOffer_no() {

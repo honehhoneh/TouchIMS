@@ -1,9 +1,9 @@
 package com.mendoza.touchims.views;
 
-import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,20 +16,34 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.mendoza.touchims.R;
-import com.mendoza.touchims.models.Room;
+import com.mendoza.touchims.models.Course;
 import com.mendoza.touchims.utilities.Constants;
 import com.mendoza.touchims.utilities.TouchimsSingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+
+import static com.mendoza.touchims.utilities.Constants.CURRENT_DAY;
+import static com.mendoza.touchims.utilities.Constants.CURRENT_TIME;
+import static java.time.LocalTime.parse;
 
 public class AttendanceActivity extends AppCompatActivity {
 
+    private List<Course> courses = new ArrayList<>();
+
     private String roomName;
-    private TextView tvRoomName;
+    private TextView tvRoomName, tvCurrentTime, tvCurrentDay, tvFacName, tvSchedule, tvHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,47 +62,61 @@ public class AttendanceActivity extends AppCompatActivity {
 //        });
 
         tvRoomName = findViewById(R.id.tvRoomName);
+        tvCurrentTime = findViewById(R.id.tvCurrentTime);
+        tvCurrentDay = findViewById(R.id.tvCurrentDay);
+        tvFacName = findViewById(R.id.tvFacName);
+        tvSchedule = findViewById(R.id.tvSchedule);
+        tvHeader = findViewById(R.id.tvHeader);
 
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            roomName = extras.getString("roomName");
+            roomName = extras.getString("ROOM");
         }
+        getRoomDetails();
+        tvRoomName.setText(roomName);
+        tvCurrentDay.setText(CURRENT_DAY);
+
+
     }
+
 
     private void getRoomDetails() {
 
-
-        StringRequest stringRequest = new StringRequest(
-                Request.Method.POST,
-                Constants.URL_ATTENDANCE_CHECK,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_ATTENDANCE_CHECK,
                 new Response.Listener<String>() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if (!jsonObject.getBoolean("error")) {
-                                Room room = new Room();
-                                room.setRoomName(jsonObject.getString("roomName"));
-                                room.setBldg(jsonObject.getString("bldg"));
-                                room.setFloor(jsonObject.getInt("floor"));
-                                room.setLegend(jsonObject.getInt("legend"));
 
-                                if(room.getRoomName() != null){
-                                    tvRoomName.setText(room.getRoomName().toUpperCase());
-                                }
+                                ConstraintLayout cl = findViewById(R.id.classInfoLayout);
+                                cl.setVisibility(View.VISIBLE);
 
+                                Course course = new Course();
+                                course.setOffer_no(jsonObject.getInt("offer_no"));
+                                course.setFac_id(jsonObject.getInt("fac_id"));
+                                course.setSubj_no(jsonObject.getString("subj_no"));
+                                course.setCredit_units(jsonObject.getInt("credit_units"));
+                                course.setSch_days(jsonObject.getString("sch_days"));
+                                course.setRm(jsonObject.getString("rm"));
+                                course.setFac_name(jsonObject.getString("fac_name"));
+                                course.setDepartment(jsonObject.getString("dept"));
 
-//                                if (user.getClassification().toUpperCase().equals("STUDENT")) {
-//                                    Intent intent = new Intent(LoginActivity.this, StudentProfileActivity.class);
-//                                    startActivity(intent);
-//                                    finish();
-//                                } else if (user.getClassification().toUpperCase().equals("CHAIRPERSON") || user.getClassification().toUpperCase().equals("FACULTY") || user.getClassification().toUpperCase().equals("ADMIN") || user.getClassification().toUpperCase().equals("DEAN")) {
-//                                    Intent intent = new Intent(LoginActivity.this, FacultyProfileActivity.class);
-//                                    startActivity(intent);
-//                                    finish();
-//                                }
-//                            } else {
+                                String newStart = jsonObject.getString("timeStart").substring(0, 5);
+                                course.setTimeStart(newStart);
+                                String newEnd = jsonObject.getString("timeEnd").substring(0, 5);
+                                course.setTimeEnd(newEnd);
+
+                            tvFacName.setText(course.getFac_name().toUpperCase());
+                            tvSchedule.setText(course.getTimeStart() +" - "+ course.getTimeEnd());
+
+                            } else {
+                                tvHeader.setText(jsonObject.getString("message"));
+                                ConstraintLayout cl = findViewById(R.id.classInfoLayout);
+                                cl.setVisibility(View.GONE);
 //                                Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
 
                             }
@@ -106,7 +134,9 @@ public class AttendanceActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("roomName", roomName);
+                params.put("room", roomName);
+                params.put("day", CURRENT_DAY);
+                params.put("time", CURRENT_TIME);
                 return params;
             }
         };

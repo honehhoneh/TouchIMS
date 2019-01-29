@@ -1,6 +1,9 @@
 package com.mendoza.touchims.views;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -40,15 +43,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
-            User user = SharedPrefManager.getInstance(this).getUser();
-            Term term = SharedPrefManager.getInstance(this).getTerm();
+
+                User user = SharedPrefManager.getInstance(this).getUser();
+                Term term = SharedPrefManager.getInstance(this).getTerm();
 
 
-            if (user.getClassification().toUpperCase().equals("STUDENT")) {
-                startActivity(new Intent(this, StudentProfileActivity.class));
-            } else {
-                startActivity(new Intent(this, FacultyProfileActivity.class));
-            }
+                if (user.getClassification().toUpperCase().equals("STUDENT")) {
+                    startActivity(new Intent(this, StudentProfileActivity.class));
+                } else {
+                    startActivity(new Intent(this, FacultyProfileActivity.class));
+                }
+
             return;
         }
 
@@ -163,4 +168,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 }
+
 
