@@ -1,37 +1,28 @@
 package com.mendoza.touchims.models;
 
 public class Report {
-    private int term_cd, offer_no, fac_id, credit_units;
-    private String subj_no, sch_days, sch_time, room, fac_name, department, checker_name, date, counter_remark, checker_remark, deans_reco, remark_dept;
+    private int offer_no, fac_id, credit_units;
+    private String subj_no, sch_time, room, fac_name, dept, checker_name, date, counter_remark, checker_firstRemark, checker_secondRemark, deans_reco, remark_dept;
 
     public Report() {
     }
 
-    public Report(int term_cd, int offer_no, int fac_id, int credit_units, String subj_no, String sch_days, String sch_time, String room, String fac_name, String department, String checker_name, String date, String counter_remark, String checker_remark, String deans_reco, String remark_dept) {
-        this.term_cd = term_cd;
+    public Report(int offer_no, int fac_id, int credit_units, String subj_no, String sch_time, String room, String fac_name, String dept, String checker_name, String date, String counter_remark, String checker_firstRemark, String checker_secondRemark, String deans_reco, String remark_dept) {
         this.offer_no = offer_no;
         this.fac_id = fac_id;
         this.credit_units = credit_units;
         this.subj_no = subj_no;
-        this.sch_days = sch_days;
         this.sch_time = sch_time;
         this.room = room;
         this.fac_name = fac_name;
-        this.department = department;
+        this.dept = dept;
         this.checker_name = checker_name;
         this.date = date;
         this.counter_remark = counter_remark;
-        this.checker_remark = checker_remark;
+        this.checker_firstRemark = checker_firstRemark;
+        this.checker_secondRemark = checker_secondRemark;
         this.deans_reco = deans_reco;
         this.remark_dept = remark_dept;
-    }
-
-    public int getTerm_cd() {
-        return term_cd;
-    }
-
-    public void setTerm_cd(int term_cd) {
-        this.term_cd = term_cd;
     }
 
     public int getOffer_no() {
@@ -66,14 +57,6 @@ public class Report {
         this.subj_no = subj_no;
     }
 
-    public String getSch_days() {
-        return sch_days;
-    }
-
-    public void setSch_days(String sch_days) {
-        this.sch_days = sch_days;
-    }
-
     public String getSch_time() {
         return sch_time;
     }
@@ -98,12 +81,12 @@ public class Report {
         this.fac_name = fac_name;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getDept() {
+        return dept;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDept(String dept) {
+        this.dept = dept;
     }
 
     public String getChecker_name() {
@@ -130,12 +113,20 @@ public class Report {
         this.counter_remark = counter_remark;
     }
 
-    public String getChecker_remark() {
-        return checker_remark;
+    public String getChecker_firstRemark() {
+        return checker_firstRemark;
     }
 
-    public void setChecker_remark(String checker_remark) {
-        this.checker_remark = checker_remark;
+    public void setChecker_firstRemark(String checker_firstRemark) {
+        this.checker_firstRemark = checker_firstRemark;
+    }
+
+    public String getChecker_secondRemark() {
+        return checker_secondRemark;
+    }
+
+    public void setChecker_secondRemark(String checker_secondRemark) {
+        this.checker_secondRemark = checker_secondRemark;
     }
 
     public String getDeans_reco() {
